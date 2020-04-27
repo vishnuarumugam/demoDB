@@ -95,7 +95,6 @@ public class DemoDbApplication implements CommandLineRunner{
 	    
     			UpdateUser(editField1, cust1, sc);
     }
-   }
-    
+	}
 
 }
