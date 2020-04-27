@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.example.demoDB.DemoDbApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.811 s - in com.example.demoDB.DemoDbApplicationTests
