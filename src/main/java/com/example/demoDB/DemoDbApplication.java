@@ -10,13 +10,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demoDB.repository.CustomerRepository;
+import com.example.demoDB.controller.CustomerController;
 import com.example.demoDB.model.Customer;
 
 @SpringBootApplication
 public class DemoDbApplication implements CommandLineRunner{
 
 	@Autowired
-	CustomerRepository customerRepository;
+	CustomerController customerController;
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DemoDbApplication.class, args);
 	}
@@ -31,29 +34,38 @@ public class DemoDbApplication implements CommandLineRunner{
 		//customerRepository.save(new Customer("2","Bob", "Smith"));
 		//customerRepository.save(new Customer("3","Vishnu", "Kumar"));
 		
-	    System.out.println("Customers found with findAll():");
-	    System.out.println("-------------------------------");
-	    
-	    for(Customer cust:customerRepository.findAll()) {
-	    	System.out.println(cust.getId()+" "+ cust.getFirstName()+ " "+cust.getLastName());
-	    }
-	    
-	    System.out.println("Enter the Customer Id to edit");
-	    
-	    Scanner sc=new Scanner(System.in);
-	    
-	    String custIn = sc.next();
-	   
-	    
-	    Optional<Customer> cust1 = customerRepository.findById(custIn);
-	    
-	    System.out.println("Going to edit:"+cust1.get().getId());
-	    System.out.println("Enter the field which you want to edit");
-	    System.out.println("1.First Name"+ "  "+ "2.Last Name");
-	    
-	    Integer editField = sc.nextInt();
-	    
-	    UpdateUser(editField, cust1, sc);
+		List<Customer> customers=customerController.getAllCustomers();
+		System.out.println("List of customers details :");
+
+		for(Customer customer:customers) {
+			
+			System.out.println(customer.getFirstName()+" "+customer.getLastName()+" "+customer.getId());
+		}
+		/*
+		 * System.out.println("Customers found with findAll():");
+		 * System.out.println("-------------------------------");
+		 * 
+		 * for(Customer cust:customerRepository.findAll()) {
+		 * System.out.println(cust.getId()+" "+ cust.getFirstName()+
+		 * " "+cust.getLastName()); }
+		 * 
+		 * System.out.println("Enter the Customer Id to edit");
+		 * 
+		 * Scanner sc=new Scanner(System.in);
+		 * 
+		 * String custIn = sc.next();
+		 * 
+		 * 
+		 * Optional<Customer> cust1 = customerRepository.findById(custIn);
+		 * 
+		 * System.out.println("Going to edit:"+cust1.get().getId());
+		 * System.out.println("Enter the field which you want to edit");
+		 * System.out.println("1.First Name"+ "  "+ "2.Last Name");
+		 * 
+		 * Integer editField = sc.nextInt();
+		 * 
+		 * UpdateUser(editField, cust1, sc);
+		 */
 
 	}
 	
@@ -69,7 +81,7 @@ public class DemoDbApplication implements CommandLineRunner{
     	
     		custFirstId.setFirstName(custFirst);
     	
-    		customerRepository.save(custFirstId);
+    		//customerRepository.save(custFirstId);
     		System.out.println("First Name changed successfully");
     		
     	
@@ -82,7 +94,7 @@ public class DemoDbApplication implements CommandLineRunner{
     	
     			custLastId.setLastName(custLast);
     	
-    			customerRepository.save(custLastId);
+    			//customerRepository.save(custLastId);
     			System.out.println("Last Name changed successfully");
     	}
     	else {
