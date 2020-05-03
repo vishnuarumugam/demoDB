@@ -1,8 +1,12 @@
 package com.example.demoDB.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 public class Item {
+	
+	@Transient
+	public static final String Sequence_Name = "item_sequence";
 
 	@Id
 	private Integer itemID;

@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.example.demoDB.DemoDbApplication;
+import com.example.demoDB.model.DatabaseSequence;
 import com.example.demoDB.model.Item;
 import com.example.demoDB.service.ItemService;
+import com.example.demoDB.service.SequenceGeneratorService;
 
 @Controller
 public class ItemController {
 
 	@Autowired 
 	ItemService itemService;
-	
+	@Autowired
+	SequenceGeneratorService sequenceGeneratorService;
 	@Autowired
 	DemoDbApplication demoDbApplicaton;
 	
@@ -84,6 +87,9 @@ public class ItemController {
 	
 	public void AddItemOption() {
 		
+		
+		
+		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Please provide the below necessary details");
@@ -104,7 +110,9 @@ public class ItemController {
 		System.out.println("Please enter the no.of.quantity available");
 		Integer userItemQuan = sc.nextInt();
 		
+		//Long itemSeq = sequenceGeneratorService.generateSequence(Item.Sequence_Name);
 		
+		//System.out.println("seq:" + itemSeq);
 		Item item = new Item();
 		
 		item.setItemID(userItemID);
