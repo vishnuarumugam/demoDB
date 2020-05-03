@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 
 import com.example.demoDB.model.User;
@@ -15,6 +16,10 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	Environment environment;
+	
+
 	public void addUser(Integer type,Scanner sc) {
 		// TODO Auto-generated method stub
 		
@@ -43,8 +48,7 @@ public class UserController {
 			customer.setEmailId(custEmail);
 			customer.setPhoneNo(phoneNumber);
 			
-			userService.addUser(customer);
-			System.out.println("Customer Details added succesfully! "+custId);
+			addCustomer(customer);
 			
 		}
 		else if(type==2) {
@@ -73,24 +77,110 @@ public class UserController {
 			merchant.setEmailId(merEmail);
 			merchant.setPhoneNo(phoneNumber);
 			
-			userService.addUser(merchant);
-			System.out.println("Merchant Details added succesfully! "+merId);
+			addMerchant(merchant);
 
 		}
 		else
 		{
 			System.out.println("Invalid User Type");
-			System.out.println("Please enter the correct userType");
-			type=sc.nextInt();
-			addUser(type, sc);
 		}
 	}
 
-	public void listUsers() {
+
+	public void addCustomer(User customer) {
+		try {
+			userService.addUser(customer);
+			System.out.println(environment.getProperty("UserInterface.CUSTOMER_ADDED_SUCCES")+" "+customer.getUserId());
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(environment.getProperty(e.getMessage()));
+			Scanner sc=new Scanner(System.in);
+			if(environment.getProperty(e.getMessage()).equalsIgnoreCase(environment.getProperty("UserValidator.INVALID_UserID"))) {
+				System.out.println("Please enter the correct customer Id");
+			    Integer custId=sc.nextInt();
+			    customer.setUserId(custId);
+
+			    addCustomer(customer);
+			}
+			else if(environment.getProperty(e.getMessage()).equalsIgnoreCase(environment.getProperty("UserValidator.INVALID_Email"))) {
+				System.out.println("Please enter the correct email address");
+				String custEmail=sc.next();
+			    customer.setEmailId(custEmail);
+			    addCustomer(customer);
+				
+			}
+			else if(environment.getProperty(e.getMessage()).equalsIgnoreCase(environment.getProperty("UserValidator.INVALID_Name"))) {
+				System.out.println("Please enter the name");
+				String custfirstName=sc.next();
+				String custlastName=sc.next();
+			    customer.setName(custfirstName+" "+custlastName);
+			    addCustomer(customer);
+				
+			}
+			else if(environment.getProperty(e.getMessage()).equalsIgnoreCase(environment.getProperty("UserValidator.INVALID_PhoneNumber"))) {
+				System.out.println("Please enter the phone number");
+				String phoneNumber=sc.next();
+			    customer.setPhoneNo(phoneNumber);
+			    addCustomer(customer);
+				
+			}
+			else {
+				System.out.println("Invalid error");
+			}
+		}
+
+	}
+	
+	public void addMerchant(User merchant) {
+		try {
+			userService.addUser(merchant);
+			System.out.println(environment.getProperty("UserInterface.MERCHANT_ADDED_SUCCESS")+" "+merchant.getUserId());
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(environment.getProperty(e.getMessage()));
+			Scanner sc=new Scanner(System.in);
+			if(environment.getProperty(e.getMessage()).equalsIgnoreCase(environment.getProperty("UserValidator.INVALID_UserID"))) {
+				System.out.println("Please enter the correct customer Id");
+			    Integer merId=sc.nextInt();
+			    merchant.setUserId(merId);
+
+			    addMerchant(merchant);
+			}
+			else if(environment.getProperty(e.getMessage()).equalsIgnoreCase(environment.getProperty("UserValidator.INVALID_Email"))) {
+				System.out.println("Please enter the correct email address");
+				String merEmail=sc.next();
+				merchant.setEmailId(merEmail);
+				addMerchant(merchant);
+				
+			}
+			else if(environment.getProperty(e.getMessage()).equalsIgnoreCase(environment.getProperty("UserValidator.INVALID_Name"))) {
+				System.out.println("Please enter the name");
+				String merfirstName=sc.next();
+				String merlastName=sc.next();
+				merchant.setName(merfirstName+" "+merlastName);
+				addMerchant(merchant);
+				
+			}
+			else if(environment.getProperty(e.getMessage()).equalsIgnoreCase(environment.getProperty("UserValidator.INVALID_PhoneNumber"))) {
+				System.out.println("Please enter the phone number");
+				String phoneNumber=sc.next();
+				merchant.setPhoneNo(phoneNumber);
+				addMerchant(merchant);
+				
+			}
+			else {
+				System.out.println("Invalid error");
+			}
+		}
+
+	}
+	
+	public void listUsers(String userType) {
 		
-		System.out.println("Enter the userType which you want to list :");
-		Scanner sc=new Scanner(System.in);
-		String userType=sc.next();
 		
 		List<User> users=userService.getUsers(userType);
 		
@@ -109,31 +199,27 @@ public class UserController {
 		System.out.println("Please select the field which you want to modify :\n1: Name\n2: Email\n3: PhoneNumber");
 		Scanner sc=new Scanner(System.in);
 		int f=sc.nextInt();
-		String msg=null;
 		if(f==1) {
 			System.out.print("Enter the name :");
 			String fName=sc.next();
 			String lname=sc.next();
 			String name=fName+" "+lname;
 			System.out.println();
-			msg=userService.modifyUserName(id,name);
-			System.out.println(msg);
+			modifyUserName(id,name);
+			
 		}
 		else if(f==2) {
 			System.out.print("Enter the email : ");
 			String email=sc.next();
 			System.out.println();
 			
-			msg=userService.modifyUserEmail(id,email);
-			System.out.println(msg);
+			modifyUserEmail(id,email);
 		}
 		else if(f==3) {
 			System.out.print("Enter the phoneNumber :");
 			String phoneNumber=sc.next();
 			System.out.println();
-			
-			msg=userService.modifyUserPhoneNumber(id,phoneNumber);
-			System.out.println(msg);
+			modifyUserPhoneNumber(id,phoneNumber);
 		}
 		else {
 			System.out.println("Please select the valid option again");
@@ -141,6 +227,70 @@ public class UserController {
 		}
 		
 		
+	}
+
+
+	private void modifyUserPhoneNumber(Integer id, String phoneNumber) {
+		// TODO Auto-generated method stub
+		try {
+			String msg=userService.modifyUserPhoneNumber(id,phoneNumber);
+			System.out.println(msg);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(environment.getProperty(e.getMessage()));
+			Scanner sc=new Scanner(System.in);
+
+			System.out.print("Re-enter the correct phone Number : ");
+			phoneNumber=sc.next();
+			System.out.println();
+			modifyUserPhoneNumber(id,phoneNumber);
+
+
+		}
+
+	}
+
+
+	private void modifyUserEmail(Integer id, String email) {
+		// TODO Auto-generated method stub
+		try {
+			String msg=userService.modifyUserEmail(id,email);
+			System.out.println(msg);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(environment.getProperty(e.getMessage()));
+			Scanner sc=new Scanner(System.in);
+			System.out.print("Re-enter the correct email : ");
+			email=sc.next();
+			System.out.println();
+			modifyUserEmail(id,email);
+
+		}
+
+	}
+
+
+	private void modifyUserName(Integer id, String name) {
+		// TODO Auto-generated method stub
+		try {
+			String msg=userService.modifyUserName(id,name);
+			System.out.println(msg);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(environment.getProperty(e.getMessage()));
+			Scanner sc=new Scanner(System.in);
+			System.out.print("Please re-enter the name :");
+			String fName=sc.next();
+			String lname=sc.next();
+			name=fName+" "+lname;
+			System.out.println();
+			modifyUserName(id,name);
+
+		}
+
 	}
 
 }

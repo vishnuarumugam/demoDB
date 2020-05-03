@@ -25,7 +25,7 @@ public class UserValidator {
 		}
 	}
 
-	private static boolean validateUserPhoneNumber(String phoneNo) {
+	public static boolean validateUserPhoneNumber(String phoneNo) {
 		// TODO Auto-generated method stub
 		
 		if(phoneNo!= null && phoneNo.length()==10) {
@@ -34,20 +34,20 @@ public class UserValidator {
 		return false;
 	}
 
-	private static boolean validateUserName(String name) {
+	public static boolean validateUserName(String name) {
 		// TODO Auto-generated method stub
 		if(name==null)
 			return false;
 		else
 		{
-			if(name.length()>8)
+			if(name.length()>=6)
 				return true;
 		}
 		
 		return false;
 	}
 
-	private static boolean validateUserEmail(String emailId) {
+	public static boolean validateUserEmail(String emailId) {
 		// TODO Auto-generated method stub
 		
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
@@ -62,7 +62,7 @@ public class UserValidator {
 		return pattern.matcher(emailId).matches();
 	}
 
-	private static boolean validateUserId(Integer userId) {
+	public static boolean validateUserId(Integer userId) {
 		// TODO Auto-generated method stub
 
 		Boolean flag=false;
@@ -76,7 +76,7 @@ public class UserValidator {
 			}
 			
 		}
-		if(userId >= 3 && userId <=8)
+		if(count >= 3 && count <=8)
 			flag=true;
 		else
 			flag=false;
