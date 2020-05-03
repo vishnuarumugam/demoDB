@@ -122,9 +122,18 @@ public class ItemController {
 		item.setItemQuantity(userItemQuan);
 		item.setMerchantId(merchantId);
 		
-		itemService.AddItem(item);
+		try {
+			itemService.AddItem(item);
+		}
+		catch (Exception e){
+			
+		}
 		
 		System.out.println("Item added successfully");
+		
+		
+		
+		
 		
 		System.out.println("Do you want to continue adding. Please enter (y/n)");
 		String userConIn = sc.next();
@@ -302,9 +311,12 @@ public Item ItemIDCheck(List <Item> item, Integer userItemIdIn) {
 			ModifyEachItem(singleItem);
 			
 		}
-		
-		
-		itemService.AddItem(item);
+		try {
+			itemService.AddItem(item);
+		}
+		catch (Exception e){
+			
+		}
 		
 		System.out.println("Item modified successfully");
 		

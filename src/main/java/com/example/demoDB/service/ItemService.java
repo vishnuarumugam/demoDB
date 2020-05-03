@@ -30,24 +30,10 @@ public class ItemService {
 		return item;
 	}
 	
-	public void AddItem(Item item) {
+	public void AddItem(Item item) throws Exception{
 		
 		
-		
-		if (ItemValidator.ItemNameValid(item.getItemName())) {
-			
-		}
-		
-		if (ItemValidator.ItemDescriptionValid(item.getItemDescription())) {
-			
-		}
-		if (ItemValidator.ItemPriceValid(item.getItemPrice())) {
-		
-		}
-		if (ItemValidator.ItemQuantityValid(item.getItemQuantity())) {
-			
-		}
-		
+		ItemValidator.validateItem(item);
 		itemRepository.save(item);
 		
 	}
