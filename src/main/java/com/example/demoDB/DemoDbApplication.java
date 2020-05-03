@@ -183,7 +183,13 @@ public class DemoDbApplication implements CommandLineRunner{
 			
 		}
 		else if(option==5) {
-			itemController.ChangeItems();
+			Scanner mercSc = new Scanner(System.in);
+			
+			System.out.println("Please enter your merchant Id");
+			
+			Integer merchantId = mercSc.nextInt();
+			
+			itemController.ChangeItems(merchantId);
 
 			System.out.println("Do you want to continue again? y/n ");
 			String flag=sc.next();
@@ -295,7 +301,13 @@ public class DemoDbApplication implements CommandLineRunner{
 		}
 
 		else if(option==5) {
-			orderController.placeOrder();
+			
+			Scanner custSc = new Scanner(System.in);
+			
+			System.out.println("Please enter the customerId");
+			Integer customerId = custSc.nextInt();
+			
+			orderController.placeOrder(customerId);
 			System.out.println("Do you want to continue again? y/n ");
 			String flag=sc.next();
 			if(flag.equalsIgnoreCase("y")) {

@@ -3,6 +3,8 @@ package com.example.demoDB.model;
 public class OrderItem {
 	
 	Integer itemId;
+	String itemName;
+	Integer itemMerchantId;
 	Double itemPrice;
 	Double itemTotalPrice;
 	Integer itemQuantity;
@@ -14,7 +16,7 @@ public class OrderItem {
 	}
 
 
-	public OrderItem(Integer itemId,Double itemPrice,Double itemTotalPrice,Integer itemQuantity) {
+	public OrderItem(Integer itemId,Double itemPrice,Double itemTotalPrice,Integer itemQuantity, Integer itemMerchantId, String itemName) {
 		
 		super();
 		
@@ -22,6 +24,28 @@ public class OrderItem {
 		this.itemPrice=itemPrice;
 		this.itemTotalPrice=itemTotalPrice;
 		this.itemQuantity=itemQuantity;
+		this.itemName=itemName;
+		this.itemMerchantId=itemMerchantId;
+	}
+
+
+	public String getItemName() {
+		return itemName;
+	}
+
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+
+	public Integer getItemMerchantId() {
+		return itemMerchantId;
+	}
+
+
+	public void setItemMerchantId(Integer itemMerchantId) {
+		this.itemMerchantId = itemMerchantId;
 	}
 
 

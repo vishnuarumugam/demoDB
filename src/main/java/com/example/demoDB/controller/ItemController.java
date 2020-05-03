@@ -6,6 +6,7 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.example.demoDB.DemoDbApplication;
 import com.example.demoDB.model.Item;
 import com.example.demoDB.service.ItemService;
 
@@ -14,6 +15,11 @@ public class ItemController {
 
 	@Autowired 
 	ItemService itemService;
+	
+	@Autowired
+	DemoDbApplication demoDbApplicaton;
+	
+	Integer merchantId;
 	
 	public List<Item> getAllItem(){
 		
@@ -43,7 +49,9 @@ public class ItemController {
 		System.out.println("============================================");
 	}
 	
-	public void ChangeItems() {
+	public void ChangeItems(Integer merchantIdIn) {
+		
+		merchantId = merchantIdIn;
 		
 		System.out.println("Please select the options available:");
 		System.out.println("1. Add New Item");
@@ -65,11 +73,11 @@ public class ItemController {
 			ModifyItem(userIn);
 		}
 		else if(userIn == 4) {
-			
+			//demoDbApplicaton.selectactionForMerchant();
 		}
 		else {
 			System.out.println("Please select a valid option");
-			ChangeItems();
+			ChangeItems(merchantId);
 		}
 		
 	}
@@ -96,8 +104,6 @@ public class ItemController {
 		System.out.println("Please enter the no.of.quantity available");
 		Integer userItemQuan = sc.nextInt();
 		
-		System.out.println("Please enter the MerchantID which has to be tagged to the Item");
-		Integer userMerchantID = sc.nextInt();
 		
 		Item item = new Item();
 		
@@ -106,7 +112,7 @@ public class ItemController {
 		item.setItemDescription(userItemDesc);
 		item.setItemPrice(userItemPrice);
 		item.setItemQuantity(userItemQuan);
-		item.setMerchantId(userMerchantID);
+		item.setMerchantId(merchantId);
 		
 		itemService.AddItem(item);
 		
@@ -119,7 +125,7 @@ public class ItemController {
 			AddItemOption();
 		}
 		else {
-			ChangeItems();
+			ChangeItems(merchantId);
 		}
 		
 	}
@@ -130,8 +136,7 @@ public class ItemController {
 
 		System.out.println("Below are the list of Items available :");
 		ListItems();
-		System.out.println("Please enter the merchantId in which you want to modify the details");
-		Integer merchantId=sc.nextInt();
+		
 			List<Item> item= itemService.getMerchantItem(merchantId);
 			
 			
@@ -180,7 +185,7 @@ public class ItemController {
 					AddItemOption();
 				}
 				else {
-					ChangeItems();
+					ChangeItems(merchantId);
 				}
 				
 			}
@@ -198,7 +203,7 @@ public class ItemController {
 			itemService.DeleteItem(singleItem);
 		}
 		else {
-			ChangeItems();
+			ChangeItems(merchantId);
 		}
 		
 		System.out.println("Item has been deleted successfully");
@@ -251,6 +256,7 @@ public Item ItemIDCheck(List <Item> item, Integer userItemIdIn) {
 		System.out.println("2. Item Description");
 		System.out.println("3. Item Price");
 		System.out.println("4. Item Quantity");
+		System.out.println("5. Go Back");
 		
 		Item item = singleItem;
 		
@@ -280,7 +286,7 @@ public Item ItemIDCheck(List <Item> item, Integer userItemIdIn) {
 			
 		}
 		else if(userItemIn == 5) {
-			ChangeItems();
+			ChangeItems(merchantId);
 		}
 				
 		else {
@@ -311,7 +317,7 @@ public Item ItemIDCheck(List <Item> item, Integer userItemIdIn) {
 			ModifyEachItem(singleItem);
 		}
 		else {
-			ChangeItems();
+			ChangeItems(merchantId);
 		}
 	}
 	

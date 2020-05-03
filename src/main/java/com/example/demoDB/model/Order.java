@@ -9,7 +9,6 @@ public class Order {
 	@Id
 	private Long orderId;
 	private Integer customerId;
-	private Integer merchantId;
 	private Double orderTotalPrice;
 	private String deliveryAddress;
 	private List<OrderItem> orderItem;
@@ -25,7 +24,6 @@ public class Order {
 		super();
 		this.orderId = orderId;
 		this.customerId = customerId;
-		this.merchantId = merchantId;
 		this.orderTotalPrice = orderTotalPrice;
 		this.deliveryAddress = deliveryAddress;
 		this.orderItem = orderItem;
@@ -52,15 +50,7 @@ public class Order {
 	}
 
 
-	public Integer getMerchantId() {
-		return merchantId;
-	}
-
-
-	public void setMerchantId(Integer merchantId) {
-		this.merchantId = merchantId;
-	}
-
+	
 
 	public Double getOrderTotalPrice() {
 		return orderTotalPrice;

@@ -28,14 +28,11 @@ public class OrderService {
 		
 		orderRepository.save(order);
 		
-		System.out.println("Order Placed");
 	}
 	
 	public Long getOrderCount() {
-		
-		Long order = orderRepository.count();
-		
-		return order;
+				
+		return orderRepository.count();
 	}
 
 }

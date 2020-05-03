@@ -26,8 +26,10 @@ public class OrderController {
 	List <OrderItem> items = new ArrayList<>();
 	Double orderTotalPrice = 0.0;
 	Long orderId = null;
+	Integer customerId;
 	
-	public void placeOrder() {
+	public void placeOrder(Integer customerIdIn) {
+		customerId = customerIdIn;
 		displayItem();
 		
 		System.out.println("Please enter the ItemId to order");
@@ -84,6 +86,8 @@ public class OrderController {
 				OrderItem orderItem = new OrderItem();
 				
 				orderItem.setItemId(singleItem.getItemID());
+				orderItem.setItemMerchantId(singleItem.getMerchantId());
+				orderItem.setItemName(singleItem.getItemName());
 				orderItem.setItemPrice(singleItem.getItemPrice());
 				orderItem.setItemQuantity(itemQuantity);
 				orderItem.setItemTotalPrice(itemQuantity*singleItem.getItemPrice());
@@ -123,16 +127,14 @@ public class OrderController {
 			generateOrderId();
 			System.out.println("orderid" + orderId);
 			order.setOrderId(orderId); 
-			order.setMerchantId(1); 
-			order.setCustomerId(2);
+			order.setCustomerId(customerId);
 			order.setOrderTotalPrice(orderTotalPrice); 
 			order.setOrderItem(items);
-			 
 			orderService.AddOrder(order);
-			System.out.println("Order Placed");
+			System.out.println("Order Placed. Your order id is : 6");
 		}
 		else if (userCon.equalsIgnoreCase("y")){
-			placeOrder();
+			placeOrder(customerId);
 		}
 		
 		else {
