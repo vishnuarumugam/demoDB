@@ -44,7 +44,7 @@ public class UserService {
 		// TODO Auto-generated method stub
 		Optional<User> user = userRepository.findById(id);
 		String message=null;
-		if(!user.isEmpty()) {
+		if(user.isPresent()) {
 			User user2=user.get();
 			
 			user2.setName(name);
@@ -64,7 +64,7 @@ public class UserService {
 		// TODO Auto-generated method stub
 		Optional<User> user = userRepository.findById(id);
 		String message=null;
-		if(!user.isEmpty()) {
+		if(user.isPresent()) {
 			User user2=user.get();
 			
 			user2.setEmailId(email);
@@ -84,7 +84,7 @@ public class UserService {
 		// TODO Auto-generated method stub
 		Optional<User> user = userRepository.findById(id);
 		String message=null;
-		if(!user.isEmpty()) {
+		if(user.isPresent()) {
 			User user2=user.get();
 			
 			user2.setPhoneNo(phoneNumber);
@@ -98,6 +98,19 @@ public class UserService {
 			message="No data Found for Id "+id;
 			return message;
 		}
+	}
+
+	public String deleteUserDetail(Integer id) {
+		// TODO Auto-generated method stub
+		String message=null;
+		if(userRepository.findById(id).isPresent()) {
+			userRepository.deleteById(id);
+            message ="UserInterface.DELETE_SUCCESS";
+		}
+		else {
+			message="UserInterface.DELETE_FAILURE";
+		}
+		return message;
 	}
 
 }

@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public class Order {
 
 	@Id
-	private Integer orderId;
+	private Long orderId;
 	private Integer customerId;
 	private Integer merchantId;
 	private Double orderTotalPrice;
@@ -20,7 +20,7 @@ public class Order {
 	}
 
 
-	public Order(Integer orderId, Integer customerId, Integer merchantId, Double orderTotalPrice,
+	public Order(Long orderId, Integer customerId, Integer merchantId, Double orderTotalPrice,
 			String deliveryAddress, List<OrderItem> orderItem) {
 		super();
 		this.orderId = orderId;
@@ -32,12 +32,12 @@ public class Order {
 	}
 
 
-	public Integer getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
 
 
-	public void setOrderId(Integer orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 

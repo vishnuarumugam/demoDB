@@ -32,12 +32,15 @@ public class ItemController {
 		for (Item items:item) {
 			
 			System.out.println("============================================");
+			System.out.println("ID:" + items.getItemID());
 			System.out.println("Name:" + items.getItemName());
 			System.out.println("Description:" + items.getItemDescription());
 			System.out.println("Price:" + items.getItemPrice());
+			System.out.println("Quantity:"+ items.getItemQuantity());
 			System.out.println("MerchantId:" + items.getMerchantId());
 
 		}
+		System.out.println("============================================");
 	}
 	
 	public void ChangeItems() {
@@ -166,10 +169,6 @@ public class ItemController {
 					}
 				
 				}
-				else {
-					System.out.println("Please enter the valid ItemID"); 
-					ModifyItem(userIn);
-				}
 				
 			}
 			
@@ -206,8 +205,9 @@ public class ItemController {
 		
 	}
 	
-	public Item ItemIDCheck(List <Item> item, Integer userItemIdIn) {
+public Item ItemIDCheck(List <Item> item, Integer userItemIdIn) {
 		
+		Scanner sc = new Scanner(System.in);
 		
 		Item singleItem = new Item();	
 		
@@ -221,7 +221,13 @@ public class ItemController {
 			}
 		}
 		else {
-			singleItem = null;
+			
+			System.out.println("Please enter the valid ItemID"); 
+			
+			Integer userIn = sc.nextInt();
+			
+			ItemIDCheck(item, userIn);
+			
 		}
 		
 		/*

@@ -293,4 +293,15 @@ public class UserController {
 
 	}
 
+
+	public void deleteUserDetail(Integer id,String userType) {
+		// TODO Auto-generated method stub
+		String message=userService.deleteUserDetail(id);
+		if(userType.equalsIgnoreCase("customer"))
+				System.out.println(userType+" "+environment.getProperty(message)+id);
+		else
+			System.out.println(userType+" "+environment.getProperty(message)+id);
+
+	}
+
 }

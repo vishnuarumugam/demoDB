@@ -8,6 +8,12 @@ public class OrderItem {
 	Integer itemQuantity;
 
 	
+	
+	public OrderItem() {
+		super();
+	}
+
+
 	public OrderItem(Integer itemId,Double itemPrice,Double itemTotalPrice,Integer itemQuantity) {
 		
 		super();

@@ -31,5 +31,11 @@ public class OrderService {
 		System.out.println("Order Placed");
 	}
 	
+	public Long getOrderCount() {
+		
+		Long order = orderRepository.count();
+		
+		return order;
+	}
 
 }

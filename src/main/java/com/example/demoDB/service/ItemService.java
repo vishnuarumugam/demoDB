@@ -58,10 +58,12 @@ public class ItemService {
 		
 		return isExists;
 	}
+	public void modifyItem(Item item) {
+		itemRepository.save(item);
+	}
 	public void DeleteItem(Item item) {
 		
 		
 		itemRepository.delete(item);
 	}
-
 }

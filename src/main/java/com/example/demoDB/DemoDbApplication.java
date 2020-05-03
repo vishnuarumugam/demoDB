@@ -114,7 +114,7 @@ public class DemoDbApplication implements CommandLineRunner{
 	private void selectactionForMerchant() {
 		// TODO Auto-generated method stub
 		System.out.println("Select the actions which you want to perform :");
-		System.out.println("1. Add Merchant Details\n2. List Merchant Details\n3. Modify Merchant details \n4. Item Data Add/Change/List \n5. Order List");
+		System.out.println("1. Add Merchant Details\n2. List Merchant Details\n3. Modify Merchant details \n4. Delete Merchant details\n5. Item Data Add/Change/List \n6. Order List");
 		Scanner sc=new Scanner(System.in);
 		int option=sc.nextInt();
 		if(option==1) {
@@ -166,6 +166,23 @@ public class DemoDbApplication implements CommandLineRunner{
 			
 		}
 		else if(option==4) {
+			System.out.println("Please enter the merchant Id which you want to delete");
+			Integer id=sc.nextInt();
+			userController.deleteUserDetail(id,"merchant");
+			
+			System.out.println("Do you want to continue again? y/n ");
+			String flag=sc.next();
+			if(flag.equalsIgnoreCase("y")) {
+				selectactionForMerchant();
+			}
+			else {
+				System.out.println("Merchant Action is Completed!...........Going Back to login Page");
+				loginPage();
+
+			}
+			
+		}
+		else if(option==5) {
 			itemController.ChangeItems();
 
 			System.out.println("Do you want to continue again? y/n ");
@@ -180,7 +197,7 @@ public class DemoDbApplication implements CommandLineRunner{
 			}
 	
 		}
-		else if(option==5) {
+		else if(option==6) {
 			System.out.println("Your Order Lists");
 			
 			System.out.println("Do you want to continue again? y/n ");
@@ -208,7 +225,7 @@ public class DemoDbApplication implements CommandLineRunner{
 	private void selectActionForCustomer() {
 		// TODO Auto-generated method stub
 		System.out.println("Select the actions which you want to perform :");
-		System.out.println("1. Add Customer Details\n2. List Customer Details\n3. Modify Customer details\n4. Place Order\n5. Your Orders");
+		System.out.println("1. Add Customer Details\n2. List Customer Details\n3. Modify Customer details\n4.Delete Customer Details\n5. Place Order\n6. Your Orders");
 		Scanner sc=new Scanner(System.in);
 		int option=sc.nextInt();
 		if(option==1) {
@@ -260,6 +277,24 @@ public class DemoDbApplication implements CommandLineRunner{
 
 		}
 		else if(option==4) {
+			System.out.println("Please enter the customer Id which you want to delete");
+			Integer id=sc.nextInt();
+			userController.deleteUserDetail(id,"customer");
+			
+			System.out.println("Do you want to continue again? y/n ");
+			String flag=sc.next();
+			if(flag.equalsIgnoreCase("y")) {
+				selectActionForCustomer();
+			}
+			else {
+				System.out.println("Customer Action is Completed!...........Going Back to login Page");
+				loginPage();
+
+			}
+			
+		}
+
+		else if(option==5) {
 			orderController.placeOrder();
 			System.out.println("Do you want to continue again? y/n ");
 			String flag=sc.next();
@@ -273,7 +308,7 @@ public class DemoDbApplication implements CommandLineRunner{
 			}
 
 		}
-		else if(option==5) {
+		else if(option==6) {
 			System.out.println("Your Order Lists");
 			
 			System.out.println("Do you want to continue again? y/n ");
